@@ -108,7 +108,11 @@ namespace hex::crash {
             try {
                 std::rethrow_exception(std::current_exception());
             } catch (std::exception &ex) {
+#if LLVM_VERSION_MAJOR < 17
                 std::string exceptionStr = hex::format("{}()::what() -> {}", llvm::itaniumDemangle(typeid(ex).name(), nullptr, nullptr, nullptr), ex.what());
+#else
+                std::string exceptionStr = hex::format("{}()::what() -> {}", llvm::itaniumDemangle(typeid(ex).name()), ex.what());
+#endif
                 log::fatal("Program terminated with uncaught exception: {}", exceptionStr);
 
                 EventManager::post<EventAbnormalTermination>(0);
