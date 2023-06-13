@@ -505,11 +505,13 @@ macro(addBundledLibraries)
         pkg_check_modules(LIBCURL REQUIRED IMPORTED_TARGET libcurl>=7.76.1)
     endif()
 
+    initDependencySourceChoice(LLVM LLVM)
     if (NOT USE_SYSTEM_LLVM)
         add_subdirectory(${EXTERN_LIBS_FOLDER}/llvm-demangle EXCLUDE_FROM_ALL)
         set_target_properties(LLVMDemangle PROPERTIES POSITION_INDEPENDENT_CODE ON)
     else()
         find_package(LLVM REQUIRED Demangle)
+        list(APPEND badCloneExclusions "llvm-demangle")
     endif()
 
     if (NOT USE_SYSTEM_YARA)
