@@ -2,10 +2,7 @@ name: "Unit Tests"
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-  workflow_dispatch:
+    branches: [ system_deps_test ]
 
 jobs:
   tests:
