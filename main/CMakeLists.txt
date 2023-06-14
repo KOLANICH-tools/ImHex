@@ -15,6 +15,8 @@ add_executable(main ${APPLICATION_TYPE}
     ${IMHEX_ICON}
 )
 
+addVersionMacrodefsToSources(source/main.cpp source/init/splash_window.cpp)
+
 if(LLVM_VERSION_MAJOR)
     message(STATUS "Adding LLVM_VERSION_MAJOR=${LLVM_VERSION_MAJOR} to source/crash_handlers.cpp for llvm::itaniumDemangle")
     set_property(
